@@ -390,7 +390,7 @@ extract_image() {
     fi
 
     ## use new reduced-size boot swi
-    local swi_boot_path="flash:$image_name/$boot_image"
+    local swi_boot_path="$target_path:$image_name/$boot_image"
     update_boot_config SWI "$swi_boot_path"
     update_boot_config SWI_DEFAULT "$swi_boot_path"
 
@@ -408,7 +408,7 @@ extract_image_secureboot() {
     chmod a+r "$installer_image_path"
     swipath="$installer_image_path"
 
-    local swi_boot_path="flash:$image_name/$installer_image"
+    local swi_boot_path="$target_path:$image_name/$installer_image"
     update_boot_config SWI "$swi_boot_path"
     update_boot_config SWI_DEFAULT "$swi_boot_path"
 

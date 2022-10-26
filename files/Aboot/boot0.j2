@@ -694,11 +694,17 @@ write_image_specific_cmdline() {
         err "Management port not found."
     fi
 
-    # Obtain root partition uuid
     local mountstr="$(mount | grep " $target_path ")"
     local rootdev="$(echo $mountstr | cut -f1 -d' ')"
     local rootfstype="$(echo $mountstr | cut -f5 -d' ')"
-    local rootuuid="$(get_uuid_for $rootdev)"
+
+    # Obtain root partition uuid
+    if [ -f "$data_path"/disk-uuid ]; then
+        local rootuuid=$(cat "$data_path"/disk-uuid)
+    else
+        local rootuuid="$(get_uuid_for $rootdev)"
+    fi
+
     if [ -z "$rootuuid" ] || [ "$rootfstype" = "vfat" ] ; then
         cmdline_add "root=$rootdev"
     else

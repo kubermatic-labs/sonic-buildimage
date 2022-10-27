@@ -699,8 +699,8 @@ write_image_specific_cmdline() {
     local rootfstype="$(echo $mountstr | cut -f5 -d' ')"
 
     # Obtain root partition uuid
-    if [ -f "$data_path"/disk-uuid ]; then
-        local rootuuid=$(cat "$data_path"/disk-uuid)
+    if [ -f /mnt/flash/disk-uuid ]; then
+        local rootuuid=$(cat /mnt/flash/disk-uuid)
     else
         local rootuuid="$(get_uuid_for $rootdev)"
     fi
